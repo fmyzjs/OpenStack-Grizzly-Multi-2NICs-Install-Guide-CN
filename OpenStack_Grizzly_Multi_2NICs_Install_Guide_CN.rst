@@ -1016,6 +1016,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
            address 192.168.8.53
            netmask 255.255.255.0
 
+   /etc/init.d/networking restart
+
 
 * 开启路由转发::
 

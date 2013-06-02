@@ -53,7 +53,7 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 **注意2:** 这个是当前网络架构
 
-.. image:: http://i.imgur.com/Frsughe.jpg
+.. image:: http://i.imgur.com/OhcrgKy.jpg
 
 2. 控制节点
 ===============
@@ -727,7 +727,7 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    pvcreate /dev/loop2
    vgcreate cinder-volumes /dev/loop2
 
-**注意:** 重启后卷组不会自动挂载 (点击`这个 <https://github.com/mseknibilel/OpenStack-Folsom-Install-guide/blob/master/Tricks%26Ideas/load_volume_group_after_system_reboot.rst>`_ 设置在重启后自动挂载) 
+**注意:** 重启后卷组不会自动挂载 (点击 `这个 <https://github.com/mseknibilel/OpenStack-Folsom-Install-guide/blob/master/Tricks%26Ideas/load_volume_group_after_system_reboot.rst>`_  设置在重启后自动挂载) 
 
 * 重启cinder服务::
 

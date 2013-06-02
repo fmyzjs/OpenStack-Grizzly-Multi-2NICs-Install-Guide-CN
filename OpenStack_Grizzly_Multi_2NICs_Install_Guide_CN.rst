@@ -951,8 +951,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 3.4. OpenVSwitch (Part2)
 ------------------
 * 将内部外部网卡加入br-ex并清除外部网卡的IP::
-   ovs-vsctl  add-port  br-ex  eth0
-   ifconfig  eth0  0
+   ovs-vsctl  add-port  br-ex  eth1
+   ifconfig  eth1  1
    ifconfig  br-ex  211.68.39.92  netmask  255.255.255.192
    route  add  default  gw  211.68.39.65
 *上面的设置在重启电脑后配置就会无效，要想重启有效，就写入配置文件/etc/network/interfaces（这样修改后，启动后br-ex和eth1是满足要求了，但是启动的虚拟机又无法ping通，解决办法是：将上述命令写入脚本文件，然后再链接到rc2.d（ln –s XXX.sh /etc/rc2.d/S99XX）中，开机后执行脚本，这样就可以解决了）

@@ -53,7 +53,7 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 **注意2:** 这个是当前网络架构
 
-.. image:: http://i.imgur.com/OhcrgKy.jpg
+.. image:: http://i.imgur.com/NUC8Jdi.png
 
 2. 控制节点
 ===============

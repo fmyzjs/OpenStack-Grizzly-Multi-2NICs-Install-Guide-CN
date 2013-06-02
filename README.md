@@ -11,4 +11,4 @@ OpenStack Grizzly 双网卡安装指南
 
 Guide Branch  | Single/Multi Node | Quantum plugin  | Direct Guide Link                                                                                              |
 ------------- | ----------------- | --------------- | ------------------                                                                                             |                                                                                             |
-master        | Multi             | OpenVSwitch     | https://github.com/fmyzjs/OpenStack-Grizzly-2NICs-Install-Guide-CN/blob/master/OpenStack_Grizzly_2NICs_Install_Guide.rst |
+master        | Multi             | OpenVSwitch     | https://github.com/fmyzjs/OpenStack-Grizzly-Multi-2NICs-Install-Guide-CN/blob/master/OpenStack_Grizzly_Multi_2NICs_Install_Guide_CN.rst |

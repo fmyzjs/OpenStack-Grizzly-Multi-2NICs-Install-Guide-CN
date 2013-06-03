@@ -343,13 +343,13 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    admin_password = service_pass
 
    #或者执行
-   #cat <<EOF >> /etc/glance/glance-api-paste.ini
-   #auth_host = 192.168.8.51
-   #auth_port = 35357
-   #auth_protocol = http
-   #admin_tenant_name = service
-   #admin_user = glance
-   #EOF
+   cat <<EOF >> /etc/glance/glance-api-paste.ini
+   auth_host = 192.168.8.51
+   auth_port = 35357
+   auth_protocol = http
+   admin_tenant_name = service
+   admin_user = glance
+   EOF
 
 
 * 按下面更新/etc/glance/glance-registry-paste.ini::
@@ -364,18 +364,35 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    admin_password = service_pass
 
    #或者执行
-   #cat <<EOF >> /etc/glance/glance-registry-paste.ini
-   #auth_host = 192.168.8.51
-   #auth_port = 35357
-   #auth_protocol = http
-   #admin_tenant_name = service
-   #admin_user = glance
-   #admin_password = service_pass
-   #EOF
+   cat <<EOF >> /etc/glance/glance-registry-paste.ini
+   auth_host = 192.168.8.51
+   auth_port = 35357
+   auth_protocol = http
+   admin_tenant_name = service
+   admin_user = glance
+   admin_password = service_pass
+   EOF
 
 
 
 * 按下面更新/etc/glance/glance-api.conf::
+   
+
+   [keystone_authtoken]
+   auth_host = 192.168.8.51
+   auth_port = 35357
+   auth_protocol = http
+   admin_tenant_name = service
+   admin_user = glance
+   admin_password = service_pass
+
+   #或者执行
+   sed -i -e " s/auth_host = 127.0.0.1/auth_host = 192.168.8.51/g; 
+               s/%SERVICE_TENANT_NAME%/service/g; 
+               s/%SERVICE_USER%/glance/g; 
+               s/%SERVICE_PASSWORD%/service_pass/g; 
+             " /etc/glance/glance-api.conf
+
 
    sql_connection = mysql://glanceUser:glancePass@192.168.8.51/glance
    #sed -i '/sql_connection = .*/{s|sqlite:///.*|mysql://'"glanceUser"':'"glancePass"'@'"192.168.8.51"'/glance|g}' /etc/glance/glance-api.conf
@@ -389,6 +406,23 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    #echo flavor = keystone >> /etc/glance/glance-api.conf
    
 * 按下面更新/etc/glance/glance-registry.conf::
+   
+
+   [keystone_authtoken]
+   auth_host = 192.168.8.51
+   auth_port = 35357
+   auth_protocol = http
+   admin_tenant_name = service
+   admin_user = glance
+   admin_password = service_pass
+
+   #或者执行
+   sed -i -e " s/auth_host = 127.0.0.1/auth_host = 192.168.8.51/g; 
+               s/%SERVICE_TENANT_NAME%/service/g; 
+               s/%SERVICE_USER%/glance/g; 
+               s/%SERVICE_PASSWORD%/service_pass/g; 
+             " /etc/glance/glance-registry.conf
+
 
    sql_connection = mysql://glanceUser:glancePass@192.168.8.51/glance
    #sed -i '/sql_connection = .*/{s|sqlite:///.*|mysql://'"glanceUser"':'"glancePass"'@'"192.168.8.51"'/glance|g}' /etc/glance/glance-registry.conf 
@@ -416,8 +450,6 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    service glance-registry restart; service glance-api restart
 
 * 测试Glance, 从网络上传cirros云镜像::
-
-   glance image-create --name cirros --is-public true --container-format bare --disk-format qcow2 --location https://launchpad.net/cirros/trunk/0.3.0/+download/cirros-0.3.0-x86_64-disk.img
 
    注意：通过此镜像创建的虚拟机可通过用户名/密码登陆， 用户名：cirros 密码：cubswin:)
 
@@ -543,7 +575,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    #或者
 
    sed -i -e " s/auth_host = 127.0.0.1/auth_host = 192.168.8.51/g; 
-               s/%SERVICE_TENANT_NAME%/service/g; s/%SERVICE_USER%/nova/g; 
+               s/%SERVICE_TENANT_NAME%/service/g; 
+               s/%SERVICE_USER%/nova/g; 
                s/%SERVICE_PASSWORD%/service_pass/g; 
              " /etc/nova/api-paste.ini
 
@@ -955,7 +988,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    ifconfig  eth1  0
    ifconfig  br-ex  211.68.39.92  netmask  255.255.255.192
    route  add  default  gw  211.68.39.65
-*上面的设置在重启电脑后配置就会无效，要想重启有效，就写入配置文件/etc/network/interfaces（这样修改后，启动后br-ex和eth1是满足要求了，但是启动的虚拟机又无法ping通，解决办法是：将上述命令写入脚本文件，然后再链接到rc2.d（ln –s XXX.sh /etc/rc2.d/S99XX）中，开机后执行脚本，这样就可以解决了）
+   
+   #上面的设置在重启电脑后配置就会无效，要想重启有效，就写入配置文件/etc/network/interfaces（这样修改后，启动后br-ex和eth1是满足要求了，但是启动的虚拟机又无法ping通，解决办法是：将上述命令写入脚本文件，然后再链接到rc2.d（ln –s XXX.sh /etc/rc2.d/S99XX）中，开机后执行脚本，这样就可以解决了）
 
 
 4. 计算节点

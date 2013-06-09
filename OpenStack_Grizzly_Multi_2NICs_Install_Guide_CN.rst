@@ -1336,6 +1336,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    +----------------------------------+---------+---------+
 
 * 为admin租户创建网络::
+    
+     quantum net-create --tenant-id $put_id_of_admin admin_int
 
    # quantum net-create --tenant-id a6ecf481397d4eab954af8318b336bfe admin_int
 
@@ -1358,6 +1360,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 # 为admin租户创建子网::
 
+     quantum subnet-create --tenant-id $put_id_of_admin admin_int 10.0.0.0/24
+
    # quantum subnet-create --tenant-id a6ecf481397d4eab954af8318b336bfe admin_int 192.168.8.0/24 
 
    Created a new subnet:
@@ -1378,7 +1382,8 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
    +------------------+--------------------------------------------------+
 
 * 为admin租户创建路由器::
-
+    
+     quantum router-create --tenant-id $put_id_of_admin router_admin
    # quantum router-create --tenant-id a6ecf481397d4eab954af8318b336bfe router_admin
 
    Created a new router:
@@ -1395,12 +1400,15 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 * 把路由加入子网::
 
+     quantum router-interface-add $put_router_admin_id_here $put_subnet_id_here
    # quantum router-interface-add 9cbc5687-7bf9-4145-89a1-cf614e377f7a 3c9e0733-32e0-43ad-9fde-3b75259ff39e   
 
 
 
 * 创建外部网络::
 
+   
+     quantum net-create --tenant-id $put_id_of_service_tenant ext_net --router:external=True
    # quantum net-create --tenant-id 6a51172646bc4e06b74c5e81f09f2cce ext_net --router:external=True
 
 
@@ -1425,6 +1433,7 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 * 创建外网用子网211.68.39.64/26::
 
+     quantum subnet-create --tenant-id $put_id_of_service_tenant --allocation-pool start=192.168.1.10X,end=192.168.1.1XX --gateway 192.168.1.1 ext_net 192.168.1.0/24 --enable_dhcp=False
    # quantum subnet-create --tenant-id 6a51172646bc4e06b74c5e81f09f2cce --allocation-pool start=211.68.39.68,end=211.68.39.74 --gateway 211.68.39.65 ext_net 211.68.39.64/26 --enable_dhcp=False
 
 
@@ -1449,6 +1458,7 @@ OpenStack Grizzly 双网卡安装指南旨在让你轻松创建自己的OpenStac
 
 * 关联外网和admin的路由::
 
+     quantum router-gateway-set $put_router_tenantA_id_here $put_id_of_ext_net_here
    # quantum router-gateway-set 9cbc5687-7bf9-4145-89a1-cf614e377f7a 20cd57e4-f4b5-4c1d-a96d-0ca0a01b2b06
 
 
@@ -1465,4 +1475,4 @@ This work has been based on:
 * Bilel Msekni's Folsom Install guide [https://github.com/mseknibilel/OpenStack-Folsom-Install-guide]
 * OpenStack Grizzly Install Guide (Master Branch) [https://github.com/mseknibilel/OpenStack-Grizzly-Install-Guide]
 * Ubuntu13.04安装多机Grizzly版本的OpenStack35 [http://wenku.baidu.com/view/3b428f38bd64783e09122bf4?fr=prin]
-*OpenStack Grizzly-Install Guide CN [https://github.com/ist0ne/OpenStack-Grizzly-Install-Guide-CN/blob/OVS_MutliNode/OpenStack_Grizzly_Install_Guide.rst]
+* OpenStack Grizzly-Install Guide CN [https://github.com/ist0ne/OpenStack-Grizzly-Install-Guide-CN/blob/OVS_MutliNode/OpenStack_Grizzly_Install_Guide.rst]

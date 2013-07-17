@@ -1474,5 +1474,5 @@ This work has been based on:
 
 * Bilel Msekni's Folsom Install guide [https://github.com/mseknibilel/OpenStack-Folsom-Install-guide]
 * OpenStack Grizzly Install Guide (Master Branch) [https://github.com/mseknibilel/OpenStack-Grizzly-Install-Guide]
-* Ubuntu13.04安装多机Grizzly版本的OpenStack35 [http://wenku.baidu.com/view/3b428f38bd64783e09122bf4?fr=prin]
+* Ubuntu13.04安装多机Grizzly版本的OpenStack [http://wenku.baidu.com/view/3b428f38bd64783e09122bf4?fr=prin]
 * OpenStack Grizzly-Install Guide CN [https://github.com/ist0ne/OpenStack-Grizzly-Install-Guide-CN/blob/OVS_MutliNode/OpenStack_Grizzly_Install_Guide.rst]
